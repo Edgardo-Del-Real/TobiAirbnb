@@ -520,6 +520,103 @@ const HeroCarouselController = (function() {
 })();
 
 /* ============================================
+   6. LANGUAGE SWITCHER CONTROLLER
+   ============================================ */
+
+const LanguageSwitcherController = (function() {
+    let switcher = null;
+    let trigger = null;
+    let dropdown = null;
+    let isOpen = false;
+    
+    /**
+     * Abre el dropdown
+     */
+    function open() {
+        if (isOpen) return;
+        isOpen = true;
+        switcher.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+    }
+    
+    /**
+     * Cierra el dropdown
+     */
+    function close() {
+        if (!isOpen) return;
+        isOpen = false;
+        switcher.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+    }
+    
+    /**
+     * Alterna el estado del dropdown
+     */
+    function toggle() {
+        isOpen ? close() : open();
+    }
+    
+    /**
+     * Maneja el click fuera del dropdown
+     * @param {Event} e - Evento click
+     */
+    function handleClickOutside(e) {
+        if (switcher && !switcher.contains(e.target)) {
+            close();
+        }
+    }
+    
+    /**
+     * Maneja la tecla Escape
+     * @param {KeyboardEvent} e - Evento teclado
+     */
+    function handleKeydown(e) {
+        if (e.key === 'Escape' && isOpen) {
+            close();
+            trigger.focus();
+        }
+    }
+    
+    /**
+     * Inicializa el controlador del language switcher
+     */
+    function init() {
+        switcher = document.getElementById('lang-switcher');
+        if (!switcher) return;
+        
+        trigger = switcher.querySelector('.lang-trigger');
+        dropdown = switcher.querySelector('.lang-dropdown');
+        
+        if (!trigger || !dropdown) return;
+        
+        // Toggle al hacer click en el trigger
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggle();
+        });
+        
+        // Cerrar al hacer click fuera
+        document.addEventListener('click', handleClickOutside);
+        
+        // Cerrar con Escape
+        document.addEventListener('keydown', handleKeydown);
+        
+        // Cerrar al hacer scroll (opcional, mejor UX)
+        window.addEventListener('scroll', () => {
+            if (isOpen) close();
+        }, { passive: true });
+    }
+    
+    // Public API
+    return {
+        init,
+        open,
+        close,
+        toggle
+    };
+})();
+
+/* ============================================
    INICIALIZACIÓN GLOBAL
    ============================================ */
 
@@ -530,6 +627,7 @@ document.addEventListener('DOMContentLoaded', function() {
     WifiCopyController.init();
     ChatbotController.init();
     HeroCarouselController.init();
+    LanguageSwitcherController.init();
 
     console.log('✅ Tenuta Re di Roma - All modules initialized');
 });
