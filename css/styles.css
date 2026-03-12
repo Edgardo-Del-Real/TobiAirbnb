@@ -1,0 +1,268 @@
+/**
+ * ============================================
+ * TENUTA RE DI ROMA - CUSTOM STYLES
+ * ============================================
+ * 
+ * Estructura:
+ * 1. Variables y configuración base
+ * 2. Tipografía y utilidades
+ * 3. Navbar y navegación
+ * 4. Hero Carousel
+ * 5. Chat Widget
+ * 6. Responsive / Media Queries
+ * 
+ * Author: Tined Solutions
+ * Version: 1.0.0
+ */
+
+/* ============================================
+   1. VARIABLES Y CONFIGURACIÓN BASE
+   ============================================ */
+
+:root {
+    --color-primary: #546a2f;
+    --color-background-light: #f7f7f6;
+    --color-background-dark: #1a1d15;
+    --color-metro-orange: #ea580c;
+    
+    --transition-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+    --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   2. TIPOGRAFÍA Y UTILIDADES
+   ============================================ */
+
+.serif-title {
+    font-family: 'Noto Serif', serif;
+}
+
+body {
+    min-height: max(884px, 100dvh);
+}
+
+/* ============================================
+   3. NAVBAR Y NAVEGACIÓN
+   ============================================ */
+
+/* Premium Navbar Custom Styles */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+/* Dropdown Menu Styles */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu {
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 15px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.mobile-menu.open {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
+}
+
+.mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+    opacity: 0;
+}
+
+.mobile-submenu.open {
+    max-height: 320px;
+    opacity: 1;
+}
+
+.mobile-submenu-toggle .submenu-icon {
+    transition: transform 0.3s ease;
+}
+
+.mobile-submenu-toggle[aria-expanded="true"] .submenu-icon {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   4. HERO CAROUSEL
+   ============================================ */
+
+.carousel-container {
+    perspective: 1000px;
+    touch-action: pan-y pinch-zoom;
+}
+
+.carousel-track {
+    transform-style: preserve-3d;
+    transition: transform 0.5s var(--transition-smooth);
+}
+
+.carousel-item {
+    backface-visibility: hidden;
+    transition: all 0.5s var(--transition-smooth);
+}
+
+.carousel-item.active {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+}
+
+.carousel-item.hidden {
+    opacity: 0;
+    transform: scale(0.8) translateZ(-200px);
+}
+
+/* Hero Navigation Buttons */
+.hero-nav-btn {
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.hero-nav-btn:active {
+    transform: scale(0.95);
+}
+
+/* Progress Bar */
+.progress-bar {
+    transition: width 0.5s var(--transition-smooth);
+}
+
+/* ============================================
+   5. CHAT WIDGET
+   ============================================ */
+
+#chat-widget-window {
+    width: 380px;
+    height: 560px;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.22), 
+                0 4px 16px -2px rgba(0, 0, 0, 0.12);
+    transform-origin: bottom right;
+    transform: scale(0.85) translateY(16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s var(--transition-bounce), 
+                opacity 0.22s ease;
+    overflow: hidden;
+}
+
+#chat-widget-window.open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#chat-fab {
+    pointer-events: auto;
+    box-shadow: 0 4px 20px rgba(84, 106, 47, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#chat-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 28px rgba(84, 106, 47, 0.55);
+}
+
+#chat-fab:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   6. RESPONSIVE / MEDIA QUERIES
+   ============================================ */
+
+/* --- Mobile (max-width: 640px) --- */
+@media (max-width: 640px) {
+    .carousel-item.prev {
+        opacity: 0;
+        transform: scale(0.8) translateX(-50%) translateZ(-100px);
+    }
+    
+    .carousel-item.next {
+        opacity: 0;
+        transform: scale(0.8) translateX(50%) translateZ(-100px);
+    }
+}
+
+/* --- Tablet and above (min-width: 641px) --- */
+@media (min-width: 641px) {
+    .carousel-item.prev {
+        opacity: 0.7;
+        transform: scale(0.9) translateX(-100%) translateZ(-100px);
+    }
+    
+    .carousel-item.next {
+        opacity: 0.7;
+        transform: scale(0.9) translateX(100%) translateZ(-100px);
+    }
+}
+
+/* --- Hover capable devices --- */
+@media (hover: hover) {
+    .hero-nav-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+}
+
+/* --- Desktop (min-width: 1024px) --- */
+@media (min-width: 1024px) {
+    #chat-fab {
+        display: none !important;
+    }
+    
+    #chat-widget {
+        bottom: auto !important;
+        top: 80px;
+    }
+    
+    #chat-widget-window {
+        width: 520px;
+        height: calc(100dvh - 96px);
+        transform-origin: top right;
+        transform: scale(0.85) translateY(-16px);
+    }
+    
+    #chat-widget-window.open {
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* --- Mobile Chat Widget (max-width: 480px) --- */
+@media (max-width: 480px) {
+    #chat-widget-window {
+        width: calc(100vw - 24px);
+        height: 75dvh;
+        border-radius: 16px;
+    }
+}
