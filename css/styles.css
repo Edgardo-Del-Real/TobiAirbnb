@@ -188,6 +188,7 @@ body {
     pointer-events: auto;
     box-shadow: 0 4px 20px rgba(84, 106, 47, 0.45);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: none !important;
 }
 
 #chat-fab:hover {
