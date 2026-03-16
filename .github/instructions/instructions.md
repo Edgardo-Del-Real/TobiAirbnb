@@ -9,4 +9,4 @@ description: Describe when these instructions should be loaded by the agent base
 - Luego de cada cambio me debes hacer un resumen de lo que hiciste y explicar el por que 
 - Refactoriza y modulariza siempre que se pueda
 - Utiliza siempre buenas tecnicas de codigo
-- Luego de aplicar cambios en funcionalidades o generarlas, hacer tests de funcionamiento
+- Luego de aplicar cambios en funcionalidades o generarlas, debes generar sus tests de funcionamiento correspondientes
